@@ -1,6 +1,15 @@
-import { graph, config } from "@grafbase/sdk";
+import { graph, config, connector } from "@grafbase/sdk";
 
 const g = graph.Standalone();
+
+const mongodb = connector.MongoDB('MongoDB',{
+  url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-spflb/endpoint/data/v1',
+  apiKey: 'phQ999qxPu3xvmjoZ4xImZxiJWLkiiisLyiW9o9myc4Be7UgZrEU5hQWEKwe06fG',
+  dataSource: 'users',
+  database: 'Demo'
+})
+
+g.datasource(mongodb)
 
 const User = g.model("User", { 
   name: g.string().length({ min: 2, max: 20 }),
