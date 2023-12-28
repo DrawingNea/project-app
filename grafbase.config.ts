@@ -3,10 +3,10 @@ import { graph, config, connector, auth } from "@grafbase/sdk";
 const g = graph.Standalone();
 
 const mongo = connector.MongoDB("MongoDB", {
-  url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-spflb/endpoint/data/v1',
-  apiKey: 'phQ999qxPu3xvmjoZ4xImZxiJWLkiiisLyiW9o9myc4Be7UgZrEU5hQWEKwe06fG',
-  dataSource: 'Cluster0',
-  database: 'Demo'
+  url: "https://eu-central-1.aws.data.mongodb-api.com/app/data-spflb/endpoint/data/v1",
+  apiKey: "phQ999qxPu3xvmjoZ4xImZxiJWLkiiisLyiW9o9myc4Be7UgZrEU5hQWEKwe06fG",
+  dataSource: "Cluster0",
+  database: "Demo",
 });
 
 g.datasource(mongo);
@@ -20,7 +20,7 @@ const User = mongo
     description: g.string().optional(),
     githubUrl: g.url().optional(),
     linkedInUrl: g.url().optional(),
-    //projects: g.relation(() => Project).list().optional(),
+    projects: g.string().list().optional(),
   }).collection("users")
   .auth((rules) => {
     rules.public().read();
@@ -34,8 +34,8 @@ const Project = mongo
     image: g.url(),
     liveSiteUrl: g.url(),
     githubUrl: g.url(),
-    //category: g.string().search(),
-    //createdBy : g.relation(() => User),
+    category: g.string(), //.search(),
+    createdBy : g.string(),
   }).collection("projects")
   .auth((rules) => {
     rules.public().read(), rules.private().create().delete().update();
