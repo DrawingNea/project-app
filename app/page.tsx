@@ -1,6 +1,6 @@
-import { ProjectInterface } from "@/common.types";
+import { ProjectInterface, UserProfile } from "@/common.types";
 import ProjectCard from "@/components/ProjectCard";
-import { fetchAllProjects } from "@/lib/actions";
+import { fetchAllProjects, getUser } from "@/lib/actions";
 
 type ProjectsSearch = {
   mongoDB:{
@@ -41,9 +41,14 @@ const Home = async () => {
     <section className="flex-start flex-col paddings mb-16">
       <h1>Categories</h1>
       <section className="projects-grid">
-        {projectsToDisplay.map(({ node }: { node: ProjectInterface }) => (
-          <ProjectCard />
-        ))}
+        {projectsToDisplay.map(async ({ node }: { node: ProjectInterface }) => {
+          const projectCreator = (await getUser(node?.createdBy)) as {
+            mongoDB: {
+              user: UserProfile;
+            };
+          };
+          return(<ProjectCard key={node?.id} id={node?.id} image={node?.image} title={node?.title} name={projectCreator?.mongoDB.user?.name} avatarUrl={projectCreator?.mongoDB.user?.avatarUrl} userId={projectCreator?.mongoDB.user?.id} />);
+})}
       </section>
       <h1>LoadMore</h1>
     </section>
