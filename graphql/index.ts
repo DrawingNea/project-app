@@ -89,3 +89,32 @@ query getUserProjects($id: ID!, $last: Int = 4) {
 	}
   }
 `;
+
+export const projectsQuery = (filter: string, after: string) => {
+  return `
+query getProjects {
+	mongoDB {
+	  projectCollection(first: 8 ${filter} ${after}) {
+		edges {
+		  node {
+			id
+			title
+			description
+			image
+			liveSiteUrl
+			githubUrl
+			category
+			createdBy
+		  }
+		}
+		pageInfo {
+		  hasPreviousPage
+		  hasNextPage
+		  startCursor
+		  endCursor
+		}
+	  }
+	}
+  }
+`;
+};

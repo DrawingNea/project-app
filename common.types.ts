@@ -17,12 +17,7 @@ export interface ProjectInterface {
     githubUrl: string;
     category: string;
     id: string;
-    createdBy: {
-      name: string;
-      email: string;
-      avatarUrl: string;
-      id: string;
-    };
+    createdBy: string;
 }
 
 export interface UserProfile {
