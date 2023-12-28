@@ -23,7 +23,7 @@ const User = mongo
     //projects: g.relation(() => Project).list().optional(),
   }).collection("users")
   .auth((rules) => {
-    rules.public().read().create();
+    rules.public().read();
   });
 
 //@ts-ignore
