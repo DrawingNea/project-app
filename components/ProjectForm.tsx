@@ -1,9 +1,12 @@
 "use client";
 
 import { SessionInterface } from "@/common.types";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import FormField from "./FormField";
+import { categoryFilters } from "@/constants";
+import CustomMenu from "./CustomMenu";
+import Button from "./Button";
 
 type Props = {
   type: string;
@@ -12,15 +15,34 @@ type Props = {
 
 function ProjectForm({ type, session }: Props) {
   const handleFormSubmit = (e: React.FormEvent) => {};
-  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {};
-  const form = {
-    image: "",
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.includes("image")) {
+      return alert("Please upload an image file");
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const result = reader.result as string;
+      handleStateChange("image", result);
+    };
+  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
     title: "",
     description: "",
+    image: "",
     liveSiteUrl: "",
     githubUrl: "",
+    category: "",
+  });
+  const handleStateChange = (fieldName: string, value: string) => {
+    setForm((prevState) => ({ ...prevState, [fieldName]: value }));
   };
-  const handleStateChange = (fieldName: string, value: string) => {};
   return (
     <form onSubmit={handleFormSubmit} className="flexStart form">
       <div className="flexStart form_image-container">
@@ -70,8 +92,23 @@ function ProjectForm({ type, session }: Props) {
         placeholder="https://github.com"
         setState={(value) => handleStateChange("githubUrl", value)}
       />
+      <CustomMenu
+        title="Category"
+        state={form.category}
+        filters={categoryFilters}
+        setState={(value) => handleStateChange("category", value)}
+      />
       <div className="flexStart w-full">
-        <button>Create</button>
+        <Button
+          title={
+            isSubmitting
+              ? `${type === "create" ? "Creating" : "Editing"}`
+              : `${type === "create" ? "Create" : "Edit"}`
+          }
+          type="submit"
+          leftIcon={isSubmitting ? "" : "/plus.svg"}
+          isSubmitting={isSubmitting}
+        />
       </div>
     </form>
   );
