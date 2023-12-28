@@ -63,12 +63,12 @@ export const deleteProjectMutation = `
 `;
 
 export const getProjectsOfUserQuery = `
-query getUserProjects($id: ID!, $last: Int = 4) {
+query getUserProjects($userEmail: String!, $last: Int = 4) {
 	mongoDB {
 	  projectCollection(
 		filter: {
 		  createdBy: {
-			eq: $id
+			eq: $userEmail
 		  }
 		}
 	last: $last
@@ -118,3 +118,20 @@ query getProjects {
   }
 `;
 };
+
+export const getProjectByIdQuery = `
+query getProjectById($id: ID!) {
+	mongoDB {
+	  project(by: {id: $id}) {
+		id
+		title
+		description
+		image
+		liveSiteUrl
+		githubUrl
+		category
+		createdBy
+	  }
+	}
+  }
+`
