@@ -64,7 +64,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
         {session?.user?.email === projectCreator.mongoDB.user.email && (
           <div className="flex justify-end items-center gap-2">
-      <ProjectActions projectId={projectDetails?.id} />
+            <ProjectActions projectId={projectDetails?.id} />
           </div>
         )}
       </section>
@@ -122,9 +122,9 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
       <RelatedProjects
         userId={projectCreator.mongoDB.user.id}
         userEmail={projectCreator.mongoDB.user.email}
-        userName = {projectCreator.mongoDB.user.name}
+        userName={projectCreator.mongoDB.user.name}
         projectId={projectDetails!.id}
-        />
+      />
     </Modal>
   );
 };
