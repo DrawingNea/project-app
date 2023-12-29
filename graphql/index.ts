@@ -35,21 +35,13 @@ export const createProjectMutation = `
 `;
 
 export const updateProjectMutation = `
-	mutation UpdateProject($id: ID!, $input: ProjectUpdateInput!) {
-		mongoDB {
-			projectUpdate(by: { id: $id }, input: $input) {
-				project {
-					id
-					title
-					description
-					createdBy {
-						email
-						name
-					}
-				}
-			}
-		}
+mutation UpdateProject($id: ID!, $input: ProjectUpdateInput!) {
+	mongoDB {
+	  projectUpdate(by: { id: $id }, input: $input) {
+		modifiedCount
+	  }
 	}
+  }
 `;
 
 export const deleteProjectMutation = `
