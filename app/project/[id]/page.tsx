@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import RelatedProjects from "@/components/RelatedProjects";
+import ProjectActions from "@/components/ProjectActions";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
@@ -26,7 +27,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
     };
   };
 
-  const renderLink = () => `/profile/${projectDetails?.createdBy}`;
+  const renderLink = () => `/profile/${projectCreator?.mongoDB.user.id}`;
 
   return (
     <Modal>
