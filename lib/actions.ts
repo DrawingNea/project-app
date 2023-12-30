@@ -5,6 +5,7 @@ import {
   deleteProjectMutation,
   getProjectByIdQuery,
   getProjectsOfUserQuery,
+  getUserByIdQuery,
   getUserQuery,
   projectsQuery,
   updateProjectMutation,
@@ -33,6 +34,11 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 export const getUser = (email: string) => {
   client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getUserQuery, { email });
+};
+
+export const getUserById = (id: string) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(getUserByIdQuery, { id });
 };
 
 export const createUser = (name: string, email: string, avatarUrl: string) => {
