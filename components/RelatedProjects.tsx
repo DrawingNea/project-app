@@ -31,7 +31,6 @@ const RelatedProjects = async ({
       };
     };
   };
-  console.log(result);
   const filteredProjects = result?.mongoDB.projectCollection.edges.filter(
     ({ node }) => node?.id !== projectId
   );
