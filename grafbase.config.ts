@@ -3,8 +3,8 @@ import { graph, config, connector, auth } from "@grafbase/sdk";
 const g = graph.Standalone();
 
 const mongo = connector.MongoDB("MongoDB", {
-  url: process.env.MONGODB_API_URL!,
-  apiKey: process.env.MONGODB_API_KEY!,
+  url: process.env.GRAFBASE_API_URL!,
+  apiKey: process.env.GRAFBASE_API_KEY!,
   dataSource: "Cluster0",
   database: "Demo",
 });
