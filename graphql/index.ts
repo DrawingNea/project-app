@@ -14,6 +14,23 @@ export const getUserQuery = `
   }
 `;
 
+export const getUserByIdQuery = `
+  query GetUser($id: ID!) {
+    mongoDB {
+		user(by: {id: $id}) {
+		  id
+		  name
+		  email
+		  avatarUrl
+		  description
+		  githubUrl
+		  linkedInUrl
+		}
+	  }
+  }
+`;
+
+
 export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		mongoDB {
