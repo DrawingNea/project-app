@@ -45,7 +45,6 @@ export const authOptions: NextAuthOptions = {
             user?: UserProfile;
           };
         };
-        console.log(data)
         const newSession = {
           ...session,
           user: { ...session.user, ...data?.mongoDB?.user },

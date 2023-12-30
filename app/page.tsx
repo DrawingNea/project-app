@@ -1,5 +1,6 @@
 import { ProjectInterface, UserProfile } from "@/common.types";
 import Categories from "@/components/Categories";
+import LoadMore from "@/components/LoadMore";
 import ProjectCard from "@/components/ProjectCard";
 import { fetchAllProjects, getUser } from "@/lib/actions";
 
@@ -21,20 +22,21 @@ type ProjectsSearch = {
 
 type SearchParams = {
   category?:string;
+  endCursor?:string;
 }
 
 type Props = {
   searchParams: SearchParams
 }
 
-const Home = async ({searchParams: {category}}: Props) => {
-  const data = (await fetchAllProjects(category)) as ProjectsSearch;
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = 0;
 
-  console.log(data)
+const Home = async ({searchParams: {category, endCursor}}: Props) => {
+  const data = (await fetchAllProjects(category, endCursor)) as ProjectsSearch;
 
   const projectsToDisplay = data?.mongoDB?.projectCollection?.edges || [];
-
-  console.log(projectsToDisplay)
 
   if (projectsToDisplay.length === 0) {
     return (
@@ -46,6 +48,11 @@ const Home = async ({searchParams: {category}}: Props) => {
       </section>
     );
   }
+
+  const pagination = data?.mongoDB.projectCollection.pageInfo;
+
+  console.log(pagination)
+
   return (
     <section className="flex-start flex-col paddings mb-16">
       <Categories />
@@ -59,7 +66,7 @@ const Home = async ({searchParams: {category}}: Props) => {
           return(<ProjectCard key={node?.id} id={node?.id} image={node?.image} title={node?.title} name={projectCreator?.mongoDB.user?.name} avatarUrl={projectCreator?.mongoDB.user?.avatarUrl} userId={projectCreator?.mongoDB.user?.id} />);
 })}
       </section>
-      <h1>LoadMore</h1>
+      <LoadMore startCursor={pagination.startCursor} endCursor={pagination.endCursor} hasPreviousPage={pagination.hasPreviousPage} hasNextPage={pagination.hasNextPage} />
     </section>
   );
 };
