@@ -64,8 +64,8 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-GRAFBASE_API_URL=
-GRAFBASE_API_KEY=
+MONGODB_API_URL=
+MONGODB_API_KEY=
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 NEXTAUTH_SECRET=
