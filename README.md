@@ -77,6 +77,8 @@ CLOUDINARY_API_SECRET=
 
 Replace the placeholder values with your actual credentials. You can obtain these credentials by signing up on the corresponding websites from [Google Cloud](https://console.cloud.google.com), [Cloudinary](https://cloudinary.com/), and [Grafbase](https://grafbase.com/).
 
+This project used MongoDB as a backend. You can get a free cluster that contains your database using [Atlas](https://cloud.mongodb.com).
+
 For the Next Auth secret, you can generate any random secret using [crytool](https://www.cryptool.org/en/cto/openssl).
 
 **Running the Project**
